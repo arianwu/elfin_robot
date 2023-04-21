@@ -1,5 +1,5 @@
 elfin_arm_controller:
-  type: position_controllers/JointTrajectoryController
+  type: elfin_rrmc_controllers/RRMCPositionController # position_controllers/JointGroupPositionController # position_controllers/JointTrajectoryController # 
   joints:
      - elfin_joint1
      - elfin_joint2
@@ -12,5 +12,10 @@ elfin_arm_controller:
       stopped_velocity_tolerance: 0.1
 
   stop_trajectory_duration: 0.05
-  state_publish_rate:  25
-  action_monitor_rate: 10
+  state_publish_rate:  90
+  action_monitor_rate: 90
+
+  root_link: elfin_base_link
+  tip_link: elfin_end_link
+  motion_rate: 1
+  damping: 0.2

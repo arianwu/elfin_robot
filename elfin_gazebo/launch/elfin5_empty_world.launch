@@ -1,10 +1,12 @@
 <launch>
 
-  <include file="$(find gazebo_ros)/launch/empty_world.launch" />
+  <include file="$(find gazebo_ros)/launch/empty_world.launch">
+    <arg name="paused" value="true"/>
+  </include>
   
   <param name="robot_description" command="$(find xacro)/xacro --inorder '$(find elfin_description)/urdf/elfin5.urdf.xacro'" />
       
-  <node name="urdf_spawner" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen" args="-urdf -model elfin5 -param robot_description -z 0.1"/>
+  <node name="urdf_spawner" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen" args="-urdf -model elfin5 -param robot_description -z 0.9 -J elfin_joint2 0.7854 -J elfin_joint3 -1.57 -J elfin_joint5 0.7854 -unpause"/>
       
   <node name="fake_joint_calibration" pkg="rostopic" type="rostopic" args="pub /calibrated std_msgs/Bool true" />
       
@@ -17,6 +19,6 @@
   <node name="joint_state_controller_spawner" pkg="controller_manager" type="controller_manager" args="spawn joint_state_controller" respawn="false" output="screen"/>
   
   <rosparam file="$(find elfin_gazebo)/config/elfin_arm_control.yaml" command="load"/>
-  <node name="elfin_arm_controller_spawner" pkg="controller_manager" type="controller_manager" args="spawn elfin_arm_controller" respawn="false" output="screen"/>
+  <node name="elfin_arm_controller_spawner" pkg="controller_manager" type="controller_manager" args="load elfin_arm_controller" respawn="false" output="screen"/>
   
 </launch>

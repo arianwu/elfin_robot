@@ -691,7 +691,7 @@ int main(int argc, char** argv)
     thread_arg->elfin_hw_interface=&elfin_hw;
     pthread_create(&tid, NULL, update_loop, thread_arg);
 
-    ros::Rate r(10);
+    ros::Rate r(10); // TODO
     while (ros::ok()) {
         ros::spinOnce();
         r.sleep();
